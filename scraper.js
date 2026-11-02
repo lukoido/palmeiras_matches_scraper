@@ -19,7 +19,13 @@ async function runScraper() {
     try {
       const response = await gotScraping({
         url: targetUrl,
-        http2: false, // Forces HTTP/1.1 to bypass Cloudflare NGHTTP2_PROTOCOL_ERROR resets
+        retry: {
+          limit: 3, // Retries transient TCP drops
+        },
+        headers: {
+          'referer': 'https://www.palmeiras.com.br/calendario/',
+          'accept': 'application/json, text/plain, */*',
+        },
         headerGeneratorOptions: {
           browsers: [{ name: 'chrome' }],
           devices: ['desktop'],
