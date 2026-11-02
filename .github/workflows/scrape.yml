@@ -3,7 +3,7 @@ name: Daily Palmeiras Match Scraper
 on:
   schedule:
     # Runs daily at 06:00 UTC (3:00 AM BRT)
-    - cron: '0 6 * * *'
+    - cron: '0 4 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub interface
 
 jobs:
