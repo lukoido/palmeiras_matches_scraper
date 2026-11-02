@@ -1,0 +1,36 @@
+name: Daily Palmeiras Match Scraper
+
+on:
+  schedule:
+    # Runs daily at 06:00 UTC (3:00 AM BRT)
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub interface
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write # Required permission to commit updated JSON back to repo
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci || npm install
+
+      - name: Run Scraper
+        run: node scraper.js
+
+      - name: Commit and Push Updated JSON
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update palmeiras matches schedule [skip ci]"
+          file_pattern: "palmeiras_matches.json"

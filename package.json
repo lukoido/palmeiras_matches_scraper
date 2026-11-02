@@ -1,0 +1,14 @@
+{
+  "name": "palmeiras-scrapper",
+  "version": "1.0.0",
+  "description": "Palmeiras Match Calendar Scraper",
+  "main": "scraper.js",
+  "type": "module",
+  "scripts": {
+    "start": "node scraper.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "got-scraping": "^4.2.2"
+  }
+}
