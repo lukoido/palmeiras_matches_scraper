@@ -19,9 +19,7 @@ async function runScraper() {
     try {
       const response = await gotScraping({
         url: targetUrl,
-        retry: {
-          limit: 3, // Retries transient TCP drops
-        },
+        retry: { limit: 3 },
         headers: {
           'referer': 'https://www.palmeiras.com.br/calendario/',
           'accept': 'application/json, text/plain, */*',
@@ -39,21 +37,34 @@ async function runScraper() {
 
       const rawData = JSON.parse(response.body);
 
+      // FIX: Extract the actual array of matches from the JSON response
+      let matchesList = [];
       if (Array.isArray(rawData)) {
-        allGames.push(...rawData);
-        console.log(` -> Found ${rawData.length} entries for ${month}/${year}`);
+        matchesList = rawData; // Response is already a flat array
+      } else if (rawData && Array.isArray(rawData.jogos)) {
+        matchesList = rawData.jogos; // Response is structured as { "jogos": [...] }
       } else if (rawData) {
-        allGames.push(rawData);
+        // Fallback: dynamically find whichever key holds the array in the object
+        const arrayKey = Object.keys(rawData).find(key => Array.isArray(rawData[key]));
+        matchesList = arrayKey ? rawData[arrayKey] : [rawData];
       }
+
+      // Spread and append only the individual match items into our master list
+      allGames.push(...matchesList);
+      console.log(` -> Merged ${matchesList.length} matches for ${month}/${year}`);
+
     } catch (error) {
       console.error(` -> Failed to fetch matches for ${month}/${year}: ${error.message}`);
     }
   }
 
   const outputFilename = 'palmeiras_matches.json';
+
+  // Save as a single, flat array of all combined matches.
+  // This format works perfectly with the Google Apps Script you set up!
   fs.writeFileSync(outputFilename, JSON.stringify(allGames, null, 2));
 
-  console.log(`\nSuccess! Total of ${allGames.length} entries saved to ${outputFilename}`);
+  console.log(`\nSuccess! Total of ${allGames.length} combined match entries saved to ${outputFilename}`);
 }
 
 await runScraper();
