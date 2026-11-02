@@ -9,9 +9,8 @@ async function runScraper() {
   const numberOfMonths = 2; // Scrape current month and next month
 
   for (let i = 0; i < numberOfMonths; i++) {
-    // Generates correct month and year, handling December-to-January rollover automatically
     const targetDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + i, 1);
-    const month = targetDate.getMonth() + 1; // 1 to 12
+    const month = targetDate.getMonth() + 1;
     const year = targetDate.getFullYear();
 
     const targetUrl = `https://palmeiras.com.br/wp-json/apiverdao/v1/jogos-mes/?mes=${month}&ano=${year}&v=1`;
@@ -20,6 +19,7 @@ async function runScraper() {
     try {
       const response = await gotScraping({
         url: targetUrl,
+        http2: false, // Forces HTTP/1.1 to bypass Cloudflare NGHTTP2_PROTOCOL_ERROR resets
         headerGeneratorOptions: {
           browsers: [{ name: 'chrome' }],
           devices: ['desktop'],
@@ -33,7 +33,6 @@ async function runScraper() {
 
       const rawData = JSON.parse(response.body);
 
-      // Accumulate matches into the main array
       if (Array.isArray(rawData)) {
         allGames.push(...rawData);
         console.log(` -> Found ${rawData.length} entries for ${month}/${year}`);
@@ -45,7 +44,6 @@ async function runScraper() {
     }
   }
 
-  // Save the merged data array ONCE after all months have been fetched
   const outputFilename = 'palmeiras_matches.json';
   fs.writeFileSync(outputFilename, JSON.stringify(allGames, null, 2));
 
