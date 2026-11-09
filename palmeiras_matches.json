@@ -61,13 +61,13 @@
     "id": "5236",
     "time_casa": "Vasco da Gama",
     "urlImgMandante": "https://palmeiras.com.br/wp-content/uploads/2019/09/vasco-da-gama.png",
-    "placar_casa": "",
-    "placar_visitante": "",
-    "habilitaBotao": "S",
+    "placar_casa": "2",
+    "placar_visitante": "1",
+    "habilitaBotao": "N",
     "time_visitante": "Palmeiras",
     "urlImgVisitante": "https://palmeiras.com.br/wp-content/uploads/2019/08/logo-palmeiras-80-teste-2.png",
     "data_jogo": "08/11",
-    "data_jogo_hide": 1,
+    "data_jogo_hide": 0,
     "rodada": "Semifinal",
     "hora": "17H00",
     "hora_alt": "",
@@ -83,8 +83,8 @@
         "thumbnail": "https://palmeiras.com.br/wp-content/uploads/2019/05/tv-icone.png"
       }
     ],
-    "penaltis_mandante": "",
-    "penaltis_visitante": ""
+    "penaltis_mandante": "4",
+    "penaltis_visitante": "5"
   },
   {
     "id": "4697",
