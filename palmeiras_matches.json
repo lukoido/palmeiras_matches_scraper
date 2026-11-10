@@ -218,5 +218,28 @@
     "arrLinkTV": "",
     "penaltis_mandante": "",
     "penaltis_visitante": ""
+  },
+  {
+    "id": "5317",
+    "time_casa": "Grêmio",
+    "urlImgMandante": "https://palmeiras.com.br/wp-content/uploads/2019/09/gremio.png",
+    "placar_casa": null,
+    "placar_visitante": null,
+    "habilitaBotao": "N",
+    "time_visitante": "Palmeiras",
+    "urlImgVisitante": "https://palmeiras.com.br/wp-content/uploads/2019/08/logo-palmeiras-80-teste-2.png",
+    "data_jogo": "06/12",
+    "data_jogo_hide": 0,
+    "rodada": "Final",
+    "hora": "",
+    "hora_alt": "",
+    "hora1": null,
+    "estadio": "Mané Garrincha",
+    "campeonato": "Copa do Brasil",
+    "excecao": "",
+    "link": "N",
+    "arrLinkTV": "",
+    "penaltis_mandante": "",
+    "penaltis_visitante": ""
   }
 ]
